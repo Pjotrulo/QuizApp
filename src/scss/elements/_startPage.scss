@@ -1,9 +1,9 @@
-@import "../settings/variables";
+@import '../settings/variables';
 
 .startPage {
   width: 100vw;
   height: 100vh;
-  background-color: $primaryColor;
+  background-color: $teriaryColor;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,5 +12,6 @@
     font-size: 3rem;
     font-weight: 600;
     margin-bottom: 2rem;
+    color: white;
   }
 }

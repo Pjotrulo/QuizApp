@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './App.scss';
 import StartPage from './components/StartPage';
+import MainPage from './components/MainPage';
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<StartPage/>} />
+                    <Route path="/main" element={<MainPage/>} />
                 </Routes>
             </Router>
         </>

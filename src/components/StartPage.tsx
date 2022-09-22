@@ -1,11 +1,12 @@
-import React from "react";
-import Button from '@mui/material/Button';
+import React from 'react';
+import CustomButton from './Button';
+import {Link} from 'react-router-dom';
 
 const StartPage = () => {
     return (
         <section className="startPage">
-            <h1 className="startPage__title">Quiz</h1>
-            <Button variant="contained" sx={{backgroundColor: "red"}}>Play</Button>
+            <h1 className="startPage__title">Quiz Game</h1>
+            <Link to="/main"><CustomButton>Play</CustomButton></Link>
         </section>
     )
 }
