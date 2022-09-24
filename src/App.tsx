@@ -7,6 +7,7 @@ import {
 import './App.scss';
 import StartPage from './components/StartPage';
 import MainPage from './components/MainPage';
+import StartGame from './components/StartGame';
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<StartPage/>} />
                     <Route path="/main" element={<MainPage/>} />
+                    <Route path="/start_game" element={<StartGame/>} />
                 </Routes>
             </Router>
         </>

@@ -1,0 +1,60 @@
+@import '../settings/variables';
+@import '../settings/mixins';
+
+.categories {
+  &__title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    color: $primaryColor;
+    @include tablet {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &__all {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 57.5rem;
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 80vw;
+      margin-left: 5rem;
+    }
+
+    &--btn {
+      display: flex;
+      justify-content: center;
+      background-color: transparent;
+      border: none;
+      height: 12rem;
+      margin-bottom: 0.5rem;
+
+      p {
+        margin-top: 1rem;
+        color: white;
+        font-family: $font;
+        font-size: 1.2rem;
+        position: absolute;
+        height: 11rem;
+      }
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+}
+
+.arrow-position {
+  display: flex;
+  justify-content: center;
+  @include tablet {
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}
