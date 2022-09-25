@@ -1,19 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import _ from 'lodash';
-import Swal from  'sweetalert2';
+import Swal from 'sweetalert2';
 import {theme} from './createTheme';
 import {ThemeProvider} from "@mui/material/styles";
 
-const Categories = ({setArrow, setCategory, category}: {setArrow: object, setCategory: object, category: string}) => {
-
-    interface IOpacity {
-        opacity: number
-    }
-
-    const [opacity, setOpacity] = useState<IOpacity>({
-        opacity: 1
-    });
+const Categories = ({
+                        setArrow,
+                        setCategory,
+                        category,
+                        chooseCategory,
+                        setChooseCategory
+                    }: { setArrow: object, setCategory: object, category: string, chooseCategory: string, setChooseCategory: object }) => {
 
     const arts = require('../assets/images/arts.png');
     const film = require('../assets/images/film.png');
@@ -26,48 +24,58 @@ const Categories = ({setArrow, setCategory, category}: {setArrow: object, setCat
     const society = require('../assets/images/society.png');
     const sport = require('../assets/images/sport.png');
 
-    const test = (text: string) => {
-        text = _.snakeCase(text);
-        text = _.replace(text, 'amp', 'and')
+    const categories = [[arts, 'Arts & Literature'], [film, 'Film & TV'], [food, 'Food & Drink'], [general_knowledge, 'General Knowledge'], [geography, 'Geography'], [history, 'History'], [music, 'Music'], [science, 'Science'], [society, 'Society & Culture'], [sport, 'Sport & Leisure']];
+
+    const chosenCategory = (category: string) => {
+        category = _.snakeCase(category);
+        category = _.replace(category, 'amp', 'and')
         // @ts-ignore
         setCategory({
-            category: text
+            category: category
         })
     }
 
     return (
         <ThemeProvider theme={theme}>
             <section className="categories">
-                <h1 className="categories__title">Categories</h1>
+                <h2 className="categories__title">Categories</h2>
                 <div className="arrow-position">
                     <div className="categories__all">
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Arts & Literature</p><img src={arts} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>History</p><img src={history} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Film & TV</p><img src={film} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Music</p><img src={music} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Food & Drink</p><img src={food} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>General Knowledge</p><img src={general_knowledge} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Geography</p><img src={geography} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Science</p><img src={science} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Society & Culture</p><img src={society} alt=""/></button>
-                        <button className="categories__all--btn" style={{opacity: `${opacity.opacity}`}}><p onClick={(e) => {test((e.target as Element).innerHTML)}}>Sport & Leisure</p><img src={sport} alt=""/></button>
+                        {categories.map(el => {
+                            return (
+                                <button key={el[1]}
+                                        className={chooseCategory === el[1] ? 'categories__all--btn selected' : 'categories__all--btn'}>
+                                    <p onClick={(e) => {
+                                        chosenCategory((e.target as Element).innerHTML);
+                                        //@ts-ignore
+                                        setChooseCategory({categoryChoose: el[1]})
+                                    }}>{el[1]}</p><img src={el[0]} alt={el[1]}/></button>
+                            )
+                        })}
                     </div>
                     <KeyboardArrowRightIcon onClick={() => {
-                        if(category !== '') {
+                        if (category !== '') {
                             // @ts-ignore
                             setArrow({
                                 arrow: false
                             })
-                        }
-                        Swal.fire({
-                            title: 'You must choose a category',
-                            icon: 'info',
-                            backdrop: 'rgb(0, 0, 0, 0.95)'
-                        })
-                            .then(res => {
-                                return res;
+                        } else {
+                            Swal.fire({
+                                title: 'You must choose a category',
+                                icon: 'info',
+                                backdrop: 'rgb(0, 0, 0, 0.95)'
                             })
-                    }} sx={{color: 'black', fontSize: '3rem', position: {xs: 'fixed', sm: 'static'}, right: '2rem', top: '27rem'}}/>
+                                .then(res => {
+                                    return res;
+                                })
+                        }
+                    }} sx={{
+                        color: 'black',
+                        fontSize: '3rem',
+                        position: {xs: 'fixed', sm: 'static'},
+                        right: '2rem',
+                        top: '27rem'
+                    }}/>
                 </div>
             </section>
         </ThemeProvider>

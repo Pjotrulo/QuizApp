@@ -13,17 +13,34 @@ const StartGame = () => {
         category: string;
     }
 
-    const [category, setCategory] = useState<ICategory>({
-        category: ""
-    });
+    interface ICategoryChoose {
+        categoryChoose: string
+    }
+
+    interface ILevelChoose {
+        levelChoose: string
+    }
+
     const [arrow, setArrow] = useState<IArrow>({
         arrow: true
     });
 
+    const [category, setCategory] = useState<ICategory>({
+        category: ""
+    });
+
+    const [chooseCategory, setChooseCategory] = useState<ICategoryChoose>({
+        categoryChoose: ''
+    });
+
+    const [chooseLevel, setChooseLevel] = useState<ILevelChoose>({
+        levelChoose: ''
+    })
+
     return (
         <>
             <Header/>
-            {arrow.arrow ? <Categories setArrow={setArrow} setCategory={setCategory} category={category.category}/> : <Level setArrow={setArrow} category={category.category}/>}
+            {arrow.arrow ? <Categories setArrow={setArrow} setCategory={setCategory} category={category.category} chooseCategory={chooseCategory.categoryChoose} setChooseCategory={setChooseCategory}/> : <Level setArrow={setArrow} category={category.category} chooseLevel={chooseLevel.levelChoose} setChooseLevel={setChooseLevel}/>}
         </>
     )
 }
