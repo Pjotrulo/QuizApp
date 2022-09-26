@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {theme} from './createTheme';
 import {ThemeProvider} from "@mui/material/styles";
@@ -10,8 +11,9 @@ const Level = ({
                    setArrow,
                    category,
                    chooseLevel,
-                   setChooseLevel
-               }: { setArrow: object, category: string, chooseLevel: string, setChooseLevel: object }) => {
+                   setChooseLevel,
+                   limitQuestions
+               }: { setArrow: object, category: string, chooseLevel: string, setChooseLevel: object, limitQuestions: string }) => {
 
     interface ILevel {
         level: string
@@ -34,7 +36,8 @@ const Level = ({
         })
     }
 
-    const API = `https://the-trivia-api.com/api/questions?categories=${category}&limit=5&difficulty=${level.level}`;
+    // const API = `https://the-trivia-api.com/api/questions?categories=${category}&limit=${limitQuestions}&difficulty=${level.level}`;
+    const API = 'http://localhost:3001/game'
 
     const game = () => {
         if (level.level === '') {
@@ -47,13 +50,22 @@ const Level = ({
                     return res;
                 })
         } else {
-            axios.get(API)
-                .then(res => {
-                    return res
-                })
-                .then(data => {
-                    console.log(data.data);
-                })
+            axios({
+                method: 'post',
+                url: `${API}`,
+                data: {
+                    category: `${category}`,
+                    level: `${level.level}`,
+                    limitQuestions: `${limitQuestions}`
+                }
+            })
+            // axios.get(API)
+            //     .then(res => {
+            //         return res
+            //     })
+            //     .then(data => {
+            //         console.log(data.data);
+            //     })
         }
     }
 
@@ -88,7 +100,7 @@ const Level = ({
                         })}
                     </div>
                 </div>
-                <Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Start Game</Button>
+                {level.level === '' ? <Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Start Game</Button> : <Link to="/game"><Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Start Game</Button></Link>}
             </section>
         </ThemeProvider>
     )

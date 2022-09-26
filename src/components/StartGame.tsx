@@ -21,6 +21,10 @@ const StartGame = () => {
         levelChoose: string
     }
 
+    interface ILimitQuestions {
+        limit: string
+    }
+
     const [arrow, setArrow] = useState<IArrow>({
         arrow: true
     });
@@ -37,10 +41,18 @@ const StartGame = () => {
         levelChoose: ''
     })
 
+    const [limitQuestions, setLimitQuestions] = useState<ILimitQuestions>({
+        limit: '10'
+    })
+
     return (
         <>
-            <Header/>
-            {arrow.arrow ? <Categories setArrow={setArrow} setCategory={setCategory} category={category.category} chooseCategory={chooseCategory.categoryChoose} setChooseCategory={setChooseCategory}/> : <Level setArrow={setArrow} category={category.category} chooseLevel={chooseLevel.levelChoose} setChooseLevel={setChooseLevel}/>}
+            <Header setLimitQuestions={setLimitQuestions}/>
+            {arrow.arrow ? <Categories setArrow={setArrow} setCategory={setCategory} category={category.category}
+                                       chooseCategory={chooseCategory.categoryChoose}
+                                       setChooseCategory={setChooseCategory}/> :
+                <Level setArrow={setArrow} category={category.category} chooseLevel={chooseLevel.levelChoose}
+                       setChooseLevel={setChooseLevel} limitQuestions={limitQuestions.limit}/>}
         </>
     )
 }

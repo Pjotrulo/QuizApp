@@ -1,6 +1,46 @@
 import React, {useEffect, useState} from "react";
+import Header from './Header';
+import axios from 'axios';
 
 const Game = () => {
+
+    interface ISettingsGame {
+        category: string,
+        level: string,
+        limitQuestions: string
+    }
+
+    const [settingsQuestions, setSettingsQuestions] = useState<ISettingsGame>({
+        category: '',
+        level: '',
+        limitQuestions: ''
+    })
+
+    const database = 'http://localhost:3001/game';
+
+    useEffect(() => {
+        let mounted = true;
+            axios.get(database)
+                .then(res => {
+                    return res
+                })
+                .then(data => {
+                    if(mounted) {
+                        console.log(data.data[0].category);
+                        setSettingsQuestions({
+                            category: data.data[0].category,
+                            level: data.data[0].level,
+                            limitQuestions: data.data[0].limitQuestions
+                        })
+                    }
+                })
+
+        return () => {
+            mounted = false;
+        }
+    }, [])
+
+    // console.log(settingsQuestions);
 
     interface IQuestions {
         questions: object[];
@@ -12,28 +52,12 @@ const Game = () => {
 
     useEffect(() => {
 
-        let mounted = true;
-
-        const fetchQuestions = async () => {
-            const data = await fetch(API);
-            const json = await data.json();
-
-            if (mounted) {
-                setQuestions(json);
-            }
-        }
-
-        fetchQuestions()
-            .catch(console.error);
-
-        return () => {
-            mounted = false;
-        }
     }, [])
 
     return (
         <>
-
+            <Header />
+            <h1>Category: {settingsQuestions.category} Level: {settingsQuestions.level}</h1>
         </>
     )
 }
