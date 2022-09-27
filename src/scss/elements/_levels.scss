@@ -17,6 +17,7 @@
     @include tablet {
       display: flex;
       margin-top: 3rem;
+      margin-bottom: 3rem;
     }
 
     &--btn {
@@ -27,12 +28,13 @@
       height: 10rem;
       margin-bottom: 0.5rem;
       p {
-        margin-top: 1rem;
+        padding-top: 1rem;
         color: white;
         font-family: $font;
         font-size: 1.2rem;
         position: absolute;
         height: 9rem;
+        width: 14.375rem;
       }
 
       img {

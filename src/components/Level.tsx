@@ -6,22 +6,31 @@ import {ThemeProvider} from "@mui/material/styles";
 import Button from './Button';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import Slider from "@mui/material/Slider";
 
 const Level = ({
                    setArrow,
                    category,
                    chooseLevel,
-                   setChooseLevel,
-                   limitQuestions
-               }: { setArrow: object, category: string, chooseLevel: string, setChooseLevel: object, limitQuestions: string }) => {
+                   setChooseLevel
+               }: { setArrow: object, category: string, chooseLevel: string, setChooseLevel: object }) => {
 
     interface ILevel {
         level: string
     }
 
+    interface ILimitQuestions {
+        limit: string
+    }
+
     const [level, setLevel] = useState<ILevel>({
         level: ''
     });
+
+    const [limitQuestions, setLimitQuestions] = useState<ILimitQuestions>({
+        limit: '10'
+    })
+
 
     const easyLevel = require('../assets/images/Easy.png');
     const mediumLevel = require('../assets/images/Medium.png');
@@ -56,7 +65,7 @@ const Level = ({
                 data: {
                     category: `${category}`,
                     level: `${level.level}`,
-                    limitQuestions: `${limitQuestions}`
+                    limitQuestions: `${limitQuestions.limit}`
                 }
             })
             // axios.get(API)
@@ -100,7 +109,29 @@ const Level = ({
                         })}
                     </div>
                 </div>
-                {level.level === '' ? <Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Start Game</Button> : <Link to="/game"><Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Start Game</Button></Link>}
+                <p>Questions per game</p>
+                <Slider
+                    aria-label="Temperature"
+                    defaultValue={10}
+                    valueLabelDisplay="auto"
+                    step={5}
+                    marks
+                    min={5}
+                    max={20}
+                    sx={{color: '#b797ce', width: '300px'}}
+                    onChange={(e): void => {
+                        // @ts-ignore
+                        setLimitQuestions({
+                            limit: (e.target as HTMLInputElement).value
+                        })
+                    }}
+                />
+                {level.level === '' ?
+                    <Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Confirm</Button> :
+                    <Link to="/game"><Button onClick={game} sx={{
+                        width: '10rem',
+                        marginTop: {xs: '1rem', sm: '3rem'}
+                    }}>Confirm</Button></Link>}
             </section>
         </ThemeProvider>
     )

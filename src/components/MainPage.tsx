@@ -13,7 +13,7 @@ const MainPage = () => {
             <section className="main">
                 <div className="main__info">
                     <Avatar sx={{width: {xs: '5rem', sm: '7rem'}, height: {xs: '5rem', sm: '7rem'}}}/>
-                    <Link to="/start_game"><CustomButton sx={{padding: {xs: '0.5rem 1rem', sm: '1rem 2rem'}, fontSize: {xs: '0.7rem', sm: '1rem'}}}>New Game</CustomButton></Link>
+                    <Link to="/settings_game"><CustomButton sx={{padding: {xs: '0.5rem 1rem', sm: '1rem 2rem'}, fontSize: {xs: '0.7rem', sm: '1rem'}}}>New Game</CustomButton></Link>
                 </div>
                 <div className="main__latestGames">
                     <h2 className="main__latestGames--title">Latest Games: </h2>

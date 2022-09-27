@@ -1,59 +1,49 @@
-import React, {useState} from "react";
-import Header from "./Header";
-import Categories from "./Categories";
-import Level from "./Level";
+import React from 'react';
+import Button from "./Button";
+import axios from 'axios';
+import _ from 'lodash';
 
-const StartGame = () => {
+const StartGame = ({
+                       category,
+                       level,
+                       limitQuestions,
+                       setQuestions,
+                       setStartGame
+                   }: { category: string, level: string, limitQuestions: string, setQuestions: object, setStartGame: object }) => {
 
-    interface IArrow {
-        arrow: boolean;
+    const API = `https://the-trivia-api.com/api/questions?categories=${category}&limit=${limitQuestions}&difficulty=${level}`;
+
+
+    const getQuestions = () => {
+        axios.get(API)
+            .then(res => {
+                return res;
+            })
+            .then(questions => {
+                // @ts-ignore
+                setQuestions(questions.data);
+            })
     }
 
-    interface ICategory {
-        category: string;
-    }
+    category = _.replace(category, '_', ' ')
+    category = _.replace(category, '_', ' ')
+    category = _.startCase(category)
 
-    interface ICategoryChoose {
-        categoryChoose: string
-    }
-
-    interface ILevelChoose {
-        levelChoose: string
-    }
-
-    interface ILimitQuestions {
-        limit: string
-    }
-
-    const [arrow, setArrow] = useState<IArrow>({
-        arrow: true
-    });
-
-    const [category, setCategory] = useState<ICategory>({
-        category: ""
-    });
-
-    const [chooseCategory, setChooseCategory] = useState<ICategoryChoose>({
-        categoryChoose: ''
-    });
-
-    const [chooseLevel, setChooseLevel] = useState<ILevelChoose>({
-        levelChoose: ''
-    })
-
-    const [limitQuestions, setLimitQuestions] = useState<ILimitQuestions>({
-        limit: '10'
-    })
+    level = _.capitalize(level);
 
     return (
-        <>
-            <Header setLimitQuestions={setLimitQuestions}/>
-            {arrow.arrow ? <Categories setArrow={setArrow} setCategory={setCategory} category={category.category}
-                                       chooseCategory={chooseCategory.categoryChoose}
-                                       setChooseCategory={setChooseCategory}/> :
-                <Level setArrow={setArrow} category={category.category} chooseLevel={chooseLevel.levelChoose}
-                       setChooseLevel={setChooseLevel} limitQuestions={limitQuestions.limit}/>}
-        </>
+        <section className="start-game">
+            <div className="start-game__all">
+                <p className="start-game__all--info">Category: {category}</p>
+                <p className="start-game__all--info">Level: {level}</p>
+                <p className="start-game__all--info">Number of questions: {limitQuestions}</p>
+                <Button onClick={() => {
+                    getQuestions();
+                    // @ts-ignore
+                    setStartGame({start: true})
+                }}>Start Game</Button>
+            </div>
+        </section>
     )
 }
 

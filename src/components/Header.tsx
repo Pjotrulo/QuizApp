@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-// import EqualizerIcon from "@mui/icons-material/Equalizer";
 import SettingsIcon from '@mui/icons-material/Settings';
 import Slider from '@mui/material/Slider';
 import {styled, alpha} from '@mui/material/styles';
@@ -50,7 +49,7 @@ const StyledMenu = styled((props: MenuProps) => (
     },
 }));
 
-const Header = ({setLimitQuestions}: {setLimitQuestions: object}) => {
+const Header = () => {
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -81,25 +80,8 @@ const Header = ({setLimitQuestions}: {setLimitQuestions: object}) => {
                 onClose={handleClose}
             >
                 <MenuItem sx={{display: 'flex', flexDirection: 'column'}}>
-                    <p>Questions per game</p>
-                    <Slider
-                        aria-label="Temperature"
-                        defaultValue={10}
-                        // getAriaValueText={valuetext}
-                        valueLabelDisplay="auto"
-                        step={5}
-                        marks
-                        min={5}
-                        max={20}
-                        sx={{color: '#b797ce'}}
-                        onChange={(e): void => {
-                            // @ts-ignore
-                            setLimitQuestions({
-                            limit: (e.target as HTMLInputElement).value
-                        })}}
-                    /></MenuItem>
-                <MenuItem sx={{display: 'flex', flexDirection: 'column'}}><Link to="/"><Button sx={{color: '#b797ce'}}
-                                                                                               variant="text">Logout</Button></Link></MenuItem>
+                    <Link to="/"><Button sx={{color: '#b797ce'}} variant="text">Logout</Button></Link>
+                </MenuItem>
             </StyledMenu>
         </header>
     )

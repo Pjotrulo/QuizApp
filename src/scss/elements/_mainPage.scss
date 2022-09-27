@@ -1,21 +1,6 @@
 @import '../settings/variables';
 @import '../settings/mixins';
 
-.header {
-  background-color: $teriaryColor;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-
-  &__title {
-    color: white;
-    font-size: 2rem;
-  }
-}
-
 .main {
   padding: 1rem;
 
