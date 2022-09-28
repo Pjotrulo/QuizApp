@@ -6,16 +6,14 @@
   justify-content: center;
   align-items: center;
   height: calc(100vh - 5rem);
-  &__all {
-    background-color: $primaryContainer;
-    padding: 4rem 2rem;
-    text-align: center;
-    border-radius: 1rem;
-   &--info {
-     margin-bottom: 1rem;
-     font-weight: 500;
-     font-size: 1.5rem;
-     color: white;
-   }
+
+  p {
+    color: white;
+    margin-bottom: .5rem;
+    font-size: 1.25rem;
+
+    strong {
+      font-weight: 600;
+    }
   }
 }

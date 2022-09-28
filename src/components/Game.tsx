@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Header from './Header';
 import StartGame from './StartGame';
+import GamePlay from './GamePlay';
 import axios from 'axios';
 
 const Game = () => {
@@ -54,12 +55,10 @@ const Game = () => {
         }
     }, [])
 
-    console.log(startGame);
-
     return (
         <>
             <Header/>
-            {startGame.start ? "Gra rozpoczęta" : <StartGame category={settingsQuestions.category} level={settingsQuestions.level}
+            {startGame.start && questions ? <GamePlay questions={questions.questions}/> : <StartGame category={settingsQuestions.category} level={settingsQuestions.level}
                        limitQuestions={settingsQuestions.limitQuestions} setQuestions={setQuestions}
                        setStartGame={setStartGame}/>}
         </>

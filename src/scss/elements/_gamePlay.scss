@@ -1,0 +1,10 @@
+@import '../settings/variables';
+@import '../settings/mixins';
+
+.visible {
+  display: block;
+}
+
+.none {
+  display: none;
+}

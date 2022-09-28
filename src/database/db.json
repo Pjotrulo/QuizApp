@@ -2,21 +2,51 @@
   "game": [
     {
       "category": "arts_and_literature",
-      "level": "medium",
-      "limitQuestions": "5",
+      "level": "hard",
+      "limitQuestions": "15",
       "id": 1
     },
     {
-      "category": "arts_and_literature",
+      "category": "society_and_culture",
       "level": "medium",
-      "limitQuestions": "10",
+      "limitQuestions": "5",
       "id": 2
     },
     {
-      "category": "arts_and_literature",
-      "level": "easy",
+      "category": "film_and_tv",
+      "level": "medium",
       "limitQuestions": "10",
       "id": 3
+    },
+    {
+      "category": "film_and_tv",
+      "level": "hard",
+      "limitQuestions": "10",
+      "id": 4
+    },
+    {
+      "category": "arts_and_literature",
+      "level": "medium",
+      "limitQuestions": "10",
+      "id": 5
+    },
+    {
+      "category": "arts_and_literature",
+      "level": "medium",
+      "limitQuestions": "10",
+      "id": 6
+    },
+    {
+      "category": "film_and_tv",
+      "level": "medium",
+      "limitQuestions": "10",
+      "id": 7
+    },
+    {
+      "category": "arts_and_literature",
+      "level": "medium",
+      "limitQuestions": "10",
+      "id": 8
     }
   ]
 }

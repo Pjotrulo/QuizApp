@@ -2,6 +2,9 @@ import React from 'react';
 import Button from "./Button";
 import axios from 'axios';
 import _ from 'lodash';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 const StartGame = ({
                        category,
@@ -21,7 +24,9 @@ const StartGame = ({
             })
             .then(questions => {
                 // @ts-ignore
-                setQuestions(questions.data);
+                setQuestions({
+                    questions: questions.data
+                });
             })
     }
 
@@ -33,16 +38,34 @@ const StartGame = ({
 
     return (
         <section className="start-game">
-            <div className="start-game__all">
-                <p className="start-game__all--info">Category: {category}</p>
-                <p className="start-game__all--info">Level: {level}</p>
-                <p className="start-game__all--info">Number of questions: {limitQuestions}</p>
-                <Button onClick={() => {
-                    getQuestions();
-                    // @ts-ignore
-                    setStartGame({start: true})
-                }}>Start Game</Button>
-            </div>
+            <Card sx={{
+                backgroundColor: '#4b7a8c',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <CardContent>
+                    <p>
+                        <strong>Category:</strong> {category}
+                    </p>
+                    <p>
+                        <strong>Level:</strong> {level}
+                    </p>
+                    <p>
+                        <strong>Number of questions:</strong> {limitQuestions}
+                    </p>
+                </CardContent>
+                <CardActions>
+                    <Button sx={{padding: '.5rem .75rem'}} onClick={() => {
+                        // @ts-ignore
+                        setStartGame({
+                            start: true
+                        });
+                        getQuestions();
+                    }}>Start Game</Button>
+                </CardActions>
+            </Card>
         </section>
     )
 }
