@@ -57,10 +57,13 @@ const Game = () => {
 
     return (
         <>
-            <Header/>
-            {startGame.start && questions ? <GamePlay questions={questions.questions}/> : <StartGame category={settingsQuestions.category} level={settingsQuestions.level}
-                       limitQuestions={settingsQuestions.limitQuestions} setQuestions={setQuestions}
-                       setStartGame={setStartGame}/>}
+            {startGame.start && questions ? <GamePlay questions={questions.questions}/> : <>
+                <Header/>
+                <StartGame
+                    category={settingsQuestions.category} level={settingsQuestions.level}
+                    limitQuestions={settingsQuestions.limitQuestions} setQuestions={setQuestions}
+                    setStartGame={setStartGame}/>
+            </>}
         </>
     )
 }
