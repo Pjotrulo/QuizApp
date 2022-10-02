@@ -57,7 +57,7 @@ const Game = () => {
 
     return (
         <>
-            {startGame.start && questions ? <GamePlay questions={questions.questions}/> : <>
+            {startGame.start && questions ? <GamePlay questions={questions.questions} database={database}/> : <>
                 <Header/>
                 <StartGame
                     category={settingsQuestions.category} level={settingsQuestions.level}

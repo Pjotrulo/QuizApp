@@ -3,8 +3,11 @@ import arrayShuffle from 'array-shuffle';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import CloseIcon from '@mui/icons-material/Close';
+import CustomButton from './Button';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
-const GamePlay = ({questions}: { questions: [] }) => {
+const GamePlay = ({questions, database}: { questions: [], database: string }) => {
 
     interface IQuestion {
         question: string,
@@ -27,6 +30,9 @@ const GamePlay = ({questions}: { questions: [] }) => {
         time: number
     }
 
+    interface ITimeOn {
+        timeOn: boolean
+    }
 
     const [questionIndex, setQuestionIndex] = useState<IQuestionIndex>({
         questionIndex: 0
@@ -49,6 +55,10 @@ const GamePlay = ({questions}: { questions: [] }) => {
         time: 0
     })
 
+    const [timeOn, setTimeOn] = useState<ITimeOn>({
+        timeOn: true
+    })
+
     useEffect(() => {
         setQuestion({
             question: questions[questionIndex.questionIndex]['question'],
@@ -64,27 +74,34 @@ const GamePlay = ({questions}: { questions: [] }) => {
     }, [question])
 
     useEffect(() => {
-            const fillArray = () => {
-                for (let i = 0; i < questions.length; i++) {
-                    setSelectedAnswer(prevState => ({
-                        selectedAnswer: [...prevState.selectedAnswer, '']
-                    }))
-                }
+        const fillArray = () => {
+            for (let i = 0; i < questions.length; i++) {
+                setSelectedAnswer(prevState => ({
+                    selectedAnswer: [...prevState.selectedAnswer, '']
+                }))
             }
+        }
 
-            const setTimer = () => {
-                setInterval(() => {
-                    setTime(prevState => ({
-                        time: prevState.time + 1
-                    }))
-                }, 1000)
-            }
-
-            return () => {
-                fillArray();
-                setTimer();
-            }
+        return () => {
+            fillArray();
+        }
     }, [questions])
+
+    let timer: any;
+
+    useEffect(() => {
+        if (timeOn.timeOn) {
+            timer = setTimeout(() => {
+                setTime(prevState => ({
+                    time: prevState.time + 1
+                }))
+            }, 1000)
+        }
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [time.time])
 
     const addAnswer = (answer: string) => {
         let answers: string[] = selectedAnswer.selectedAnswer;
@@ -95,10 +112,42 @@ const GamePlay = ({questions}: { questions: [] }) => {
         })
     }
 
+    const endGame = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "question",
+            showConfirmButton: true,
+            confirmButtonColor: "green",
+            confirmButtonText: "Yes",
+            showDenyButton: true,
+            backdrop: `rgba(0, 0, 0, 0.8)`
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    window.location.href = 'http://localhost:3000/main';
+                    setTimeOn({
+                        timeOn: false
+                    })
+                    axios.delete(`${database}/1`).then(res => {
+                        return res
+                    })
+                }
+            })
+    }
+
+    // const endQuiz = () => {
+    // }
+
     return (
         <section className="game-play">
-            <p>{time.time}s</p>
-            <button className="game-play--btnEnd"><CloseIcon sx={{width: '3rem', height: '3rem'}}/></button>
+            <div className="game-play__action">
+                <p className="game-play__action--time">{time.time}s</p>
+                <button className="game-play__action--btnEnd" onClick={() => {
+                    endGame()
+                }}><CloseIcon
+                    sx={{width: '3rem', height: '3rem'}}/>
+                </button>
+            </div>
             <h1 className="game-play__question">{question.question}</h1>
             <div className="game-play__answers">
                 {shuffledAnswers.shuffledAnswers.map(el => {
@@ -107,7 +156,7 @@ const GamePlay = ({questions}: { questions: [] }) => {
                         onClick={(e) => {
                             addAnswer((e.target as HTMLElement).innerText);
                         }} key={el}>{el}</button>
-            })}
+                })}
             </div>
             <Stack spacing={2} sx={{marginTop: '3rem'}}>
                 <Pagination variant="text" count={questions.length} hideNextButton
@@ -119,6 +168,8 @@ const GamePlay = ({questions}: { questions: [] }) => {
                     }
                 }}/>
             </Stack>
+            {questionIndex.questionIndex === questions.length - 1 ?
+                <CustomButton sx={{backgroundColor: 'green', marginTop: '1rem'}}>Check answers</CustomButton> : null}
         </section>
     )
 }

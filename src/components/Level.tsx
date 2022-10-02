@@ -45,7 +45,6 @@ const Level = ({
         })
     }
 
-    // const API = `https://the-trivia-api.com/api/questions?categories=${category}&limit=${limitQuestions}&difficulty=${level.level}`;
     const API = 'http://localhost:3001/game'
 
     const game = () => {
@@ -68,13 +67,6 @@ const Level = ({
                     limitQuestions: `${limitQuestions.limit}`
                 }
             })
-            // axios.get(API)
-            //     .then(res => {
-            //         return res
-            //     })
-            //     .then(data => {
-            //         console.log(data.data);
-            //     })
         }
     }
 
