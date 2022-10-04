@@ -26,6 +26,10 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
         selectedAnswer: string[]
     }
 
+    interface ICorrectAnswers {
+        correctAnswers: string[]
+    }
+
     interface ITime {
         time: number
     }
@@ -49,6 +53,10 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
 
     const [selectedAnswer, setSelectedAnswer] = useState<ISelectedAnswer>({
         selectedAnswer: []
+    })
+
+    const [correctAnswers, setCorrectAnswers] = useState<ICorrectAnswers>({
+        correctAnswers: []
     })
 
     const [time, setTime] = useState<ITime>({
@@ -80,6 +88,12 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     selectedAnswer: [...prevState.selectedAnswer, '']
                 }))
             }
+
+            questions.map(el => {
+                setCorrectAnswers(prevState => ({
+                    correctAnswers: [...prevState.correctAnswers, el['correctAnswer']]
+                }))
+            })
         }
 
         return () => {
@@ -135,8 +149,37 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
             })
     }
 
-    // const endQuiz = () => {
-    // }
+    const endQuiz = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "question",
+            showConfirmButton: true,
+            showDenyButton: true,
+            confirmButtonColor: "green",
+            confirmButtonText: "Yes",
+            backdrop: `rgba(0, 0, 0, 0.8)`
+        })
+            .then(res => {
+                if (res.isConfirmed) {
+                    setTimeOn({
+                        timeOn: false
+                    })
+                    axios.delete(`${database}/1`).then(res => {
+                        return res
+                    })
+                    axios({
+                        method: "post",
+                        url: 'http://localhost:3001/answers',
+                        data: {
+                            userAnswers: selectedAnswer.selectedAnswer,
+                            correctAnswers: correctAnswers.correctAnswers,
+                            time: time.time
+                        }
+                    })
+                    window.location.href = 'http://localhost:3000/details';
+                }
+            })
+    }
 
     return (
         <section className="game-play">
@@ -169,7 +212,8 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                 }}/>
             </Stack>
             {questionIndex.questionIndex === questions.length - 1 ?
-                <CustomButton sx={{backgroundColor: 'green', marginTop: '1rem'}}>Check answers</CustomButton> : null}
+                <CustomButton sx={{backgroundColor: 'green', marginTop: '1rem'}} onClick={endQuiz}>Check
+                    answers</CustomButton> : null}
         </section>
     )
 }

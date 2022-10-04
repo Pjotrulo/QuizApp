@@ -45,7 +45,7 @@ const Level = ({
         })
     }
 
-    const API = 'http://localhost:3001/game'
+    const API = 'http://localhost:3001'
 
     const game = () => {
         if (level.level === '') {
@@ -60,7 +60,7 @@ const Level = ({
         } else {
             axios({
                 method: 'post',
-                url: `${API}`,
+                url: `${API}/game`,
                 data: {
                     category: `${category}`,
                     level: `${level.level}`,
