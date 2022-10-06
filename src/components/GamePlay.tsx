@@ -38,6 +38,13 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
         timeOn: boolean
     }
 
+    interface IDetails {
+        category: string,
+        level: string,
+        questions: string[],
+        answers: string[][]
+    }
+
     const [questionIndex, setQuestionIndex] = useState<IQuestionIndex>({
         questionIndex: 0
     })
@@ -67,6 +74,13 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
         timeOn: true
     })
 
+    const [details, setDetails] = useState<IDetails>({
+        category: '',
+        level: '',
+        questions: [],
+        answers: []
+    })
+
     useEffect(() => {
         setQuestion({
             question: questions[questionIndex.questionIndex]['question'],
@@ -89,9 +103,16 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                 }))
             }
 
-            questions.map(el => {
+            questions.map(question => {
                 setCorrectAnswers(prevState => ({
-                    correctAnswers: [...prevState.correctAnswers, el['correctAnswer']]
+                    correctAnswers: [...prevState.correctAnswers, question['correctAnswer']]
+                }))
+
+                setDetails(prevState => ({
+                    category: question['category'],
+                    level: question['difficulty'],
+                    questions: [...prevState.questions, question['question']],
+                    answers: [...prevState.answers, [...question['incorrectAnswers'], question['correctAnswer']]]
                 }))
             })
         }
@@ -142,9 +163,10 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     setTimeOn({
                         timeOn: false
                     })
-                    axios.delete(`${database}/1`).then(res => {
-                        return res
-                    })
+                    axios.delete(`${database}/1`)
+                        .then(res => {
+                            return res
+                        })
                 }
             })
     }
@@ -169,11 +191,15 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     })
                     axios({
                         method: "post",
-                        url: 'http://localhost:3001/answers',
+                        url: 'http://localhost:3001/details',
                         data: {
+                            category: details.category,
+                            level: details.level,
+                            questions: details.questions,
+                            answers: details.answers,
                             userAnswers: selectedAnswer.selectedAnswer,
                             correctAnswers: correctAnswers.correctAnswers,
-                            time: time.time
+                            time: time.time + "s"
                         }
                     })
                     window.location.href = 'http://localhost:3000/details';
