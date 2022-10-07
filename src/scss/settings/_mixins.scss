@@ -11,3 +11,16 @@
     @content;
   }
 }
+
+@mixin detailsContainer($backgroundColor, $fontColor, $marginTop) {
+  width: 90vw;
+  height: 3rem;
+  display: flex;
+  margin-top: $marginTop;
+  margin-bottom: 1rem;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $backgroundColor;
+  color: $fontColor;
+  border-radius: 1.25rem;
+}

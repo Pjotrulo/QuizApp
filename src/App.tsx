@@ -10,6 +10,7 @@ import MainPage from './components/MainPage';
 import SettingsGame from './components/SettingsGame';
 import Game from './components/Game';
 import Details from './components/Details';
+import DetailsQuestion from './components/DetailsQuestion';
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route path="/settings_game" element={<SettingsGame/>}/>
                     <Route path="/game" element={<Game/>}/>
                     <Route path="/details" element={<Details/>}/>
+                    <Route path="/details/question" element={<DetailsQuestion/>}/>
                 </Routes>
             </Router>
         </>

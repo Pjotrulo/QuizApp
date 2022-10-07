@@ -1,0 +1,20 @@
+@import '../settings/variables';
+@import '../settings/mixins';
+
+.details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__game {
+    @include detailsContainer($teriaryColor, white, 1rem);
+  }
+
+  &__question {
+    @include detailsContainer($secondaryColor, black, 0);
+    &--incorrect {
+      @include detailsContainer($errorContainer, black, 0);
+    }
+  }
+}

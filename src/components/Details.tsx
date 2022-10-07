@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import axios from 'axios';
-import DetailsOfQuestion from "./DetailsOfQuestion";
+import DetailsBox from "./DetailsBox";
 
 const Details = () => {
 
@@ -58,16 +58,24 @@ const Details = () => {
     return (
         <>
             <Header/>
-            {summaryQuiz.isData ? summaryQuiz.questions.map(question => {
-                    summaryQuiz.userAnswers.map(user => {
-                        if(summaryQuiz.correctAnswers.includes(user)) {
-                            return <DetailsOfQuestion question={question} checkedAnswer="Correct" time={summaryQuiz.time}/>
-                        } else {
-                            return <DetailsOfQuestion question={question} checkedAnswer="Incorrect" time={summaryQuiz.time}/>
-                        }
-                    })
-                return <p>{question}</p>
-            }) : "Loading"}
+            {summaryQuiz.isData ? <section className="details">
+                <div className="details__game">
+                    <p>{summaryQuiz.category}</p>
+                    <p>{summaryQuiz.level}</p>
+                    <p>{summaryQuiz.time}</p>
+                    <p>Details</p>
+                </div>
+                { summaryQuiz.userAnswers.map((userAnswer, id) => {
+                    if (summaryQuiz.correctAnswers.includes(userAnswer)) {
+                        return <DetailsBox id={id + 1} checkedAnswer={"Correct"}
+                                           time={summaryQuiz.time}/>
+                    } else {
+                        return <DetailsBox id={id + 1} checkedAnswer={"Incorrect"}
+                                           time={summaryQuiz.time}/>
+
+                    }
+                })}
+            </section> : "Loading"}
         </>
     )
 }
