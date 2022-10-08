@@ -186,6 +186,16 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     setTimeOn({
                         timeOn: false
                     })
+                    axios({
+                        method: "post",
+                        url: 'http://localhost:3001/latest_games',
+                        data: {
+                            category: details.category,
+                            level: details.level,
+                            correctAnswers: null,
+                            questions: null
+                        }
+                    })
                     axios.delete(`${database}/1`).then(res => {
                         return res
                     })
@@ -199,6 +209,7 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                             answers: details.answers,
                             userAnswers: selectedAnswer.selectedAnswer,
                             correctAnswers: correctAnswers.correctAnswers,
+                            identify: null,
                             time: time.time + "s"
                         }
                     })

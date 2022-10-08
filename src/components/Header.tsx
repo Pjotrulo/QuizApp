@@ -2,11 +2,11 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import SettingsIcon from '@mui/icons-material/Settings';
-import Slider from '@mui/material/Slider';
 import {styled, alpha} from '@mui/material/styles';
 import Menu, {MenuProps} from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -60,9 +60,17 @@ const Header = () => {
         setAnchorEl(null);
     };
 
+    const endGame = () => {
+        axios.delete('http://localhost:3001/details/1')
+            .then(res => res);
+        axios.delete('http://localhost:3001/game/1')
+            .then(res => res);
+        window.location.href = 'http://localhost:3000/main';
+    }
+
     return (
         <header className="header">
-            <Link to="/main"><HomeIcon sx={{color: 'white', width: {sm: '2rem'}, height: {sm: '2rem'}}}/></Link>
+            {(/details/.test(window.location.href)) ? <HomeIcon sx={{color: 'white', width: {sm: '2rem'}, height: {sm: '2rem'}}} onClick={() => {endGame();}}/> : <Link to="/main"><HomeIcon sx={{color: 'white', width: {sm: '2rem'}, height: {sm: '2rem'}}}/></Link>}
             <h1 className="header__title">Quiz Game</h1>
             <button id="demo-customized-button"
                     aria-controls={open ? 'demo-customized-menu' : undefined}
