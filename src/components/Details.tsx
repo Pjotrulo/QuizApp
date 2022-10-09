@@ -24,6 +24,10 @@ const Details = () => {
         numberOfCorrectAnswers: string[]
     }
 
+    interface ILengthLatestGames {
+        lengthLatest: number
+    }
+
     const [summaryQuiz, setSummaryQuiz] = useState<ISummaryQuiz>({
         category: '',
         level: '',
@@ -41,6 +45,10 @@ const Details = () => {
 
     const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState<INumberOfCorrectAnswers>({
         numberOfCorrectAnswers: []
+    })
+
+    const [lengthLatest, setLengthLatest] = useState<ILengthLatestGames>({
+        lengthLatest: 0
     })
 
     useEffect(() => {
@@ -66,36 +74,52 @@ const Details = () => {
                 }
             })
 
+        axios.get('http://localhost:3001/latest_games')
+            .then(res => {
+                return res;
+            })
+            .then(data => {
+                if(mounted) {
+                    setLengthLatest({
+                        lengthLatest: data.data.length
+                    })
+                }
+            })
+
         return () => {
             mounted = false;
         }
     }, [])
 
     useEffect(() => {
-            for (let i = 0; i < summaryQuiz.userAnswers.length; i++) {
-                if (summaryQuiz.userAnswers[i] === summaryQuiz.correctAnswers[i]) {
-                    setCheckedAnswers(prevState => ({
-                        checked: [...prevState.checked, "Correct"]
-                    }))
-                    setNumberOfCorrectAnswers(prevState => ({
-                        numberOfCorrectAnswers: [...prevState.numberOfCorrectAnswers, "Correct"]
-                    }))
-                } else {
-                    setCheckedAnswers(prevState => ({
-                        checked: [...prevState.checked, "Incorrect"]
-                    }))
-                }
+        for (let i = 0; i < summaryQuiz.userAnswers.length; i++) {
+            if (summaryQuiz.userAnswers[i] === summaryQuiz.correctAnswers[i]) {
+                setCheckedAnswers(prevState => ({
+                    checked: [...prevState.checked, "Correct"]
+                }))
+                setNumberOfCorrectAnswers(prevState => ({
+                    numberOfCorrectAnswers: [...prevState.numberOfCorrectAnswers, "Correct"]
+                }))
+            } else {
+                setCheckedAnswers(prevState => ({
+                    checked: [...prevState.checked, "Incorrect"]
+                }))
             }
+        }
+    }, [summaryQuiz.isData])
 
+    useEffect(() => {
+        if(lengthLatest.lengthLatest > 0) {
             axios({
                 method: "patch",
-                url: 'http://localhost:3001/latest_games/1',
+                url: `http://localhost:3001/latest_games/${lengthLatest.lengthLatest}`,
                 data: {
                     correctAnswers: numberOfCorrectAnswers.numberOfCorrectAnswers.length,
                     questions: summaryQuiz.questions.length
                 }
             })
-    }, [summaryQuiz.isData])
+        }
+    }, [numberOfCorrectAnswers.numberOfCorrectAnswers.length])
 
     return (
         <>
