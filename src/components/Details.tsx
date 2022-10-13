@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Header from './Header';
 import axios from 'axios';
 import DetailsBox from './DetailsBox';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
 
 const Details = () => {
 
@@ -24,10 +26,6 @@ const Details = () => {
         numberOfCorrectAnswers: string[]
     }
 
-    interface ILengthLatestGames {
-        lengthLatest: number
-    }
-
     const [summaryQuiz, setSummaryQuiz] = useState<ISummaryQuiz>({
         category: '',
         level: '',
@@ -45,10 +43,6 @@ const Details = () => {
 
     const [numberOfCorrectAnswers, setNumberOfCorrectAnswers] = useState<INumberOfCorrectAnswers>({
         numberOfCorrectAnswers: []
-    })
-
-    const [lengthLatest, setLengthLatest] = useState<ILengthLatestGames>({
-        lengthLatest: 0
     })
 
     useEffect(() => {
@@ -70,18 +64,6 @@ const Details = () => {
                         correctAnswers: details.correctAnswers,
                         time: details.time,
                         isData: true
-                    })
-                }
-            })
-
-        axios.get('http://localhost:3001/latest_games')
-            .then(res => {
-                return res;
-            })
-            .then(data => {
-                if(mounted) {
-                    setLengthLatest({
-                        lengthLatest: data.data.length
                     })
                 }
             })
@@ -108,31 +90,18 @@ const Details = () => {
         }
     }, [summaryQuiz.isData])
 
-    useEffect(() => {
-        if(lengthLatest.lengthLatest > 0) {
-            axios({
-                method: "patch",
-                url: `http://localhost:3001/latest_games/${lengthLatest.lengthLatest}`,
-                data: {
-                    correctAnswers: numberOfCorrectAnswers.numberOfCorrectAnswers.length,
-                    questions: summaryQuiz.questions.length
-                }
-            })
-        }
-    }, [numberOfCorrectAnswers.numberOfCorrectAnswers.length])
-
     return (
         <>
             <Header/>
             {summaryQuiz.isData && checkedAnswers.checked.length > 0 ? <section className="details">
                 <div className="details__game">
                     <p>{summaryQuiz.category}</p>
-                    <p>{summaryQuiz.level}</p>
-                    <p>{summaryQuiz.time}</p>
-                    <p>Details</p>
+                    <p style={{textTransform: 'capitalize'}}>{summaryQuiz.level}</p>
+                    <p><TimelapseIcon sx={{marginRight: '.5rem'}}/>{summaryQuiz.time}</p>
+                    <p><EqualizerIcon sx={{marginRight: '.5rem'}}/>Details</p>
                 </div>
                 {checkedAnswers.checked.map((answer, id) => {
-                    return <DetailsBox id={id + 1} checkedAnswer={answer} time={summaryQuiz.time}/>
+                    return <DetailsBox key={id} id={id + 1} checkedAnswer={answer} time={summaryQuiz.time}/>
                 })}
             </section> : "Loading"}
         </>

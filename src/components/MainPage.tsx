@@ -70,23 +70,37 @@ const MainPage = () => {
             <section className="main">
                 <div className="main__info">
                     <Avatar sx={{width: {xs: '5rem', sm: '7rem'}, height: {xs: '5rem', sm: '7rem'}}}/>
-                    <Link to="/settings_game"><CustomButton
-                        sx={{padding: {xs: '0.5rem 1rem', sm: '1rem 2rem'}, fontSize: {xs: '0.7rem', sm: '1rem'}}}>New
-                        Game</CustomButton></Link>
+                    <Link to="/settings_game">
+                        <CustomButton
+                            sx={{padding: {xs: '0.5rem 1rem', sm: '1rem 2rem'}, fontSize: {xs: '0.7rem', sm: '1rem'}}}>New
+                            Game</CustomButton></Link>
                 </div>
                 <div className="main__latestGames">
-                    <h2 className="main__latestGames--title">Latest Games: </h2>
+                    <h2 className="main__latestGames--title">Last Game: </h2>
                     {latest.isData ? categories.map(el => {
                         if (el[1] === latest.category) {
                             return (
                                 <button key={el[1]}
                                         className="categories__all--btn">
-                                    <p>{el[1]}</p>
-                                    <span>{latest.correctAnswers} / {latest.questions}</span>
-                                    <img src={el[0]} alt={el[1]}/></button>)
+                                    <p className="categories__all--btn-category">{el[1]}</p>
+                                    <p className="categories__all--btn-difficulty">{latest.level}</p>
+                                    <p className="categories__all--btn-questions">{latest.correctAnswers} / {latest.questions}</p>
+                                    <CustomButton
+                                        sx={{
+                                            padding: '0.5rem 1rem',
+                                            fontSize: '0.7rem',
+                                            position: 'absolute',
+                                            marginTop: '9rem'
+                                        }}
+                                        onClick={() => {
+                                            window.location.href = 'http://localhost:3000/game';
+                                        }}>
+                                        Play Again
+                                    </CustomButton>
+                                    <img src={el[0]} alt={el[1]}/>
+                                </button>)
                         }
-                    }) : "Loading"}
-                    {/*Boxes with latest games info*/}
+                    }) : null}
                 </div>
             </section>
         </ThemeProvider>

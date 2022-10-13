@@ -8,13 +8,14 @@
   flex-direction: column;
 
   &__game {
-    @include detailsContainer($teriaryColor, white, 1rem);
+    @include detailsContainer($teriaryColor, white, 1rem, auto);
   }
 
   &__question {
-    @include detailsContainer($secondaryColor, black, 0);
+    @include detailsContainer($secondaryColor, black, 0, pointer);
+
     &--incorrect {
-      @include detailsContainer($errorContainer, black, 0);
+      @include detailsContainer($errorContainer, black, 0, pointer);
     }
   }
 }

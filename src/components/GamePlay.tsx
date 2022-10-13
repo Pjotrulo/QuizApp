@@ -163,10 +163,10 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     setTimeOn({
                         timeOn: false
                     })
-                    axios.delete(`${database}/1`)
-                        .then(res => {
-                            return res
-                        })
+                    // axios.delete(`${database}/1`)
+                    //     .then(res => {
+                    //         return res
+                    //     })
                 }
             })
     }
@@ -196,9 +196,9 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                             questions: null
                         }
                     })
-                    axios.delete(`${database}/1`).then(res => {
-                        return res
-                    })
+                    // axios.delete(`${database}/1`).then(res => {
+                    //     return res
+                    // })
                     axios({
                         method: "post",
                         url: 'http://localhost:3001/details',
@@ -249,7 +249,7 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                 }}/>
             </Stack>
             {questionIndex.questionIndex === questions.length - 1 ?
-                <CustomButton sx={{backgroundColor: 'green', marginTop: '1rem'}} onClick={endQuiz}>Check
+                <CustomButton sx={{backgroundColor: '#b797ce', marginTop: '1rem'}} onClick={endQuiz}>Check
                     answers</CustomButton> : null}
         </section>
     )

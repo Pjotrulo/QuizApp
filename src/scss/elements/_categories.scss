@@ -33,8 +33,9 @@
       border: none;
       height: 12rem;
       margin-bottom: 0.5rem;
+      margin-top: 1rem;
 
-      p {
+      &-category {
         padding-top: 1rem;
         color: white;
         font-family: $font;
@@ -44,9 +45,16 @@
         width: 10.625rem;
       }
 
-      span {
+      &-difficulty {
+        position: absolute;
+        margin-top: 2.75rem;
+        color: white;
+      }
+
+      &-questions {
         position: absolute;
         color: white;
+        padding-top: 4.25rem;
       }
 
       img {

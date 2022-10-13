@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
 
 const DetailsBox = ({id, checkedAnswer, time}: { id: number, checkedAnswer: string, time: string }) => {
 
@@ -12,17 +12,19 @@ const DetailsBox = ({id, checkedAnswer, time}: { id: number, checkedAnswer: stri
                 identify: id
             }
         })
+        window.location.href = 'http://localhost:3000/details/question'
     }
 
     return (
-        <Link to="/details/question">
-            <div className={checkedAnswer === "Correct" ? "details__question" : "details__question--incorrect"} onClick={() => {showDetails(id);}}>
-                <p>Question {id}</p>
-                <p>{checkedAnswer}</p>
-                <p>{time}</p>
-                <p>Details</p>
-            </div>
-        </Link>
+        <div className={checkedAnswer === "Correct" ? "details__question" : "details__question--incorrect"}
+             onClick={() => {
+                 showDetails(id)
+             }}>
+            <p>Question {id}</p>
+            <p>{checkedAnswer}</p>
+            <p></p>
+            <p><EqualizerIcon sx={{marginRight: '.5rem'}}/>Details</p>
+        </div>
     )
 }
 

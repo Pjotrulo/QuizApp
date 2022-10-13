@@ -45,7 +45,7 @@ const Categories = ({
                             return (
                                 <button key={el[1]}
                                         className={chooseCategory === el[1] ? 'categories__all--btn selected' : 'categories__all--btn'}>
-                                    <p onClick={(e) => {
+                                    <p className="categories__all--btn-category" onClick={(e) => {
                                         chosenCategory((e.target as Element).innerHTML);
                                         //@ts-ignore
                                         setChooseCategory({categoryChoose: el[1]})

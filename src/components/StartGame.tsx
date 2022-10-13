@@ -39,7 +39,7 @@ const StartGame = ({
     return (
         <section className="start-game">
             <Card sx={{
-                backgroundColor: '#4b7a8c',
+                backgroundColor: '#9b6fbb',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',

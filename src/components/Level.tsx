@@ -58,6 +58,14 @@ const Level = ({
                     return res;
                 })
         } else {
+            axios.delete(`http://localhost:3001/game/1`)
+                .then(res => {
+                    return res
+                })
+            axios.delete(`http://localhost:3001/latest_games/1`)
+                .then(res => {
+                    return res
+                })
             axios({
                 method: 'post',
                 url: `${API}/game`,

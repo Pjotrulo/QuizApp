@@ -12,15 +12,45 @@
   }
 }
 
-@mixin detailsContainer($backgroundColor, $fontColor, $marginTop) {
+@mixin detailsContainer($backgroundColor, $fontColor, $marginTop, $cursor) {
   width: 90vw;
   height: 3rem;
   display: flex;
   margin-top: $marginTop;
   margin-bottom: 1rem;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: $backgroundColor;
   color: $fontColor;
   border-radius: 1.25rem;
+  p {
+    &:first-child {
+      margin-left: 1rem;
+    }
+
+    &:nth-of-type(3) {
+      display: flex;
+      align-items: center;
+    }
+
+    &:last-child {
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+  @include tablet {
+    p {
+      &:first-child {
+        margin-left: 2rem;
+      }
+
+      &:last-child {
+        margin-right: 2rem;
+      }
+    }
+  }
+  &:hover {
+    cursor: $cursor;
+  }
 }
