@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import {ThemeProvider} from '@mui/material/styles';
 import CustomButton from './Button';
 import Header from './Header';
+import Footer from './Footer';
 import {theme} from './createTheme';
 import axios from 'axios';
 
@@ -73,9 +74,10 @@ const MainPage = () => {
                     <Link to="/settings_game">
                         <CustomButton
                             sx={{padding: {xs: '0.5rem 1rem', sm: '1rem 2rem'}, fontSize: {xs: '0.7rem', sm: '1rem'}}}>New
-                            Game</CustomButton></Link>
+                            Game</CustomButton>
+                    </Link>
                 </div>
-                <div className="main__latestGames">
+                {latest.isData ? <div className="main__latestGames">
                     <h2 className="main__latestGames--title">Last Game: </h2>
                     {latest.isData ? categories.map(el => {
                         if (el[1] === latest.category) {
@@ -83,7 +85,8 @@ const MainPage = () => {
                                 <button key={el[1]}
                                         className="categories__all--btn">
                                     <p className="categories__all--btn-category">{el[1]}</p>
-                                    <p className="categories__all--btn-difficulty">{latest.level}</p>
+                                    <p className="categories__all--btn-difficulty"
+                                       style={{textTransform: 'capitalize'}}>{latest.level}</p>
                                     <p className="categories__all--btn-questions">{latest.correctAnswers} / {latest.questions}</p>
                                     <CustomButton
                                         sx={{
@@ -100,9 +103,10 @@ const MainPage = () => {
                                     <img src={el[0]} alt={el[1]}/>
                                 </button>)
                         }
-                    }) : null}
-                </div>
+                    }) : "Loading"}
+                </div> : null}
             </section>
+            <Footer/>
         </ThemeProvider>
     )
 }

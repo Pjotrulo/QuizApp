@@ -163,10 +163,6 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                     setTimeOn({
                         timeOn: false
                     })
-                    // axios.delete(`${database}/1`)
-                    //     .then(res => {
-                    //         return res
-                    //     })
                 }
             })
     }
@@ -196,9 +192,6 @@ const GamePlay = ({questions, database}: { questions: [], database: string }) =>
                             questions: null
                         }
                     })
-                    // axios.delete(`${database}/1`).then(res => {
-                    //     return res
-                    // })
                     axios({
                         method: "post",
                         url: 'http://localhost:3001/details',

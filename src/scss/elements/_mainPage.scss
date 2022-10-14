@@ -3,6 +3,7 @@
 
 .main {
   padding: 1rem;
+  height: calc(100vh - 5rem - 10rem);
 
   &__info {
     display: flex;

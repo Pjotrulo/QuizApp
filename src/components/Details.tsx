@@ -88,7 +88,18 @@ const Details = () => {
                 }))
             }
         }
-    }, [summaryQuiz.isData])
+    }, [summaryQuiz])
+
+    useEffect(() => {
+            axios({
+                method: "patch",
+                url: `http://localhost:3001/latest_games/1`,
+                data: {
+                    correctAnswers: numberOfCorrectAnswers.numberOfCorrectAnswers.length,
+                    questions: summaryQuiz.questions.length
+                }
+            })
+    }, [numberOfCorrectAnswers.numberOfCorrectAnswers.length])
 
     return (
         <>

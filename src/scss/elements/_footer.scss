@@ -1,0 +1,39 @@
+@import '../settings/variables';
+@import '../settings/mixins';
+
+.footer {
+  display: none;
+
+  @include tablet {
+    display: flex;
+    justify-content: space-around;
+    background-color: $teriaryColor;
+    color: white;
+    height: 8rem;
+  }
+
+  &__build {
+    margin-top: 1rem;
+    &--title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    &--paragraph {
+      margin-top: .3rem;
+    }
+  }
+
+  &__created {
+    margin-top: 1rem;
+    &--title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    &--paragraph {
+      margin-top: .3rem;
+      strong {
+        font-weight: 700;
+      }
+    }
+  }
+}

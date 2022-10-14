@@ -78,6 +78,25 @@ const Level = ({
         }
     }
 
+    const marks = [
+        {
+            value: 5,
+            label: '5'
+        },
+        {
+            value: 10,
+            label: '10'
+        },
+        {
+            value: 15,
+            label: '15'
+        },
+        {
+            value: 20,
+            label: '20'
+        }
+    ]
+
     return (
         <ThemeProvider theme={theme}>
             <KeyboardArrowLeftIcon onClick={() => {
@@ -115,7 +134,7 @@ const Level = ({
                     defaultValue={10}
                     valueLabelDisplay="auto"
                     step={5}
-                    marks
+                    marks={marks}
                     min={5}
                     max={20}
                     sx={{color: '#b797ce', width: '300px'}}
