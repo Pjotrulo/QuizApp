@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from "./Button";
+import Loader from './Loader'
 import axios from 'axios';
 import _ from 'lodash';
 import Card from '@mui/material/Card';
@@ -40,34 +41,34 @@ const StartGame = ({
         <>
             <section className="start-game">
                 {category ? <Card sx={{
-                        backgroundColor: '#9b6fbb',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <CardContent>
-                            <p>
-                                <strong>Category:</strong> {category}
-                            </p>
-                            <p>
-                                <strong>Level:</strong> {level}
-                            </p>
-                            <p>
-                                <strong>Number of questions:</strong> {limitQuestions}
-                            </p>
-                        </CardContent>
-                        <CardActions>
-                            <Button sx={{padding: '.5rem .75rem'}} onClick={() => {
-                                // @ts-ignore
-                                setStartGame({
-                                    start: true
-                                });
-                                getQuestions();
-                            }}>Start Game</Button>
-                        </CardActions>
-                    </Card> : "Error"}
-                </section>
+                    backgroundColor: '#9b6fbb',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <CardContent>
+                        <p>
+                            <strong>Category:</strong> {category}
+                        </p>
+                        <p>
+                            <strong>Level:</strong> {level}
+                        </p>
+                        <p>
+                            <strong>Number of questions:</strong> {limitQuestions}
+                        </p>
+                    </CardContent>
+                    <CardActions>
+                        <Button sx={{padding: '.5rem .75rem'}} onClick={() => {
+                            // @ts-ignore
+                            setStartGame({
+                                start: true
+                            });
+                            getQuestions();
+                        }}>Start Game</Button>
+                    </CardActions>
+                </Card> : <Loader height={0}/>}
+            </section>
         </>
     )
 }

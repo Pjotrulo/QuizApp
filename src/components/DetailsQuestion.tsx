@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Header from './Header';
 import QuestionDetails from "./QuestionDetails";
+import Loader from './Loader';
 
 const DetailsQuestion = () => {
 
@@ -60,7 +61,7 @@ const DetailsQuestion = () => {
                 <QuestionDetails title="Questions" paragraph={questionDetails.questions[identify]}/>
                 <QuestionDetails title="Correct answer" paragraph={questionDetails.correctAnswers[identify]}/>
                 <QuestionDetails title="Category" paragraph={questionDetails.category}/>
-            </section> : "Loading"}
+            </section> : <Loader height={5}/>}
         </>
     )
 }

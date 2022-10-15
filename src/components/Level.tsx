@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {Link} from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import {theme} from './createTheme';
 import {ThemeProvider} from "@mui/material/styles";
@@ -75,6 +74,11 @@ const Level = ({
                     limitQuestions: `${limitQuestions.limit}`
                 }
             })
+                .then(res => {
+                    if (res) {
+                        window.location.href = 'http://localhost:3000/game'
+                    }
+                })
         }
     }
 
@@ -147,10 +151,10 @@ const Level = ({
                 />
                 {level.level === '' ?
                     <Button onClick={game} sx={{width: '10rem', marginTop: {xs: '1rem', sm: '3rem'}}}>Confirm</Button> :
-                    <Link to="/game"><Button onClick={game} sx={{
+                    <Button onClick={game} sx={{
                         width: '10rem',
                         marginTop: {xs: '1rem', sm: '3rem'}
-                    }}>Confirm</Button></Link>}
+                    }}>Confirm</Button>}
             </section>
         </ThemeProvider>
     )

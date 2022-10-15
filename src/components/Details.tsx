@@ -4,6 +4,8 @@ import axios from 'axios';
 import DetailsBox from './DetailsBox';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import TimelapseIcon from '@mui/icons-material/Timelapse';
+import Loader from './Loader';
+
 
 const Details = () => {
 
@@ -91,14 +93,14 @@ const Details = () => {
     }, [summaryQuiz])
 
     useEffect(() => {
-            axios({
-                method: "patch",
-                url: `http://localhost:3001/latest_games/1`,
-                data: {
-                    correctAnswers: numberOfCorrectAnswers.numberOfCorrectAnswers.length,
-                    questions: summaryQuiz.questions.length
-                }
-            })
+        axios({
+            method: "patch",
+            url: `http://localhost:3001/latest_games/1`,
+            data: {
+                correctAnswers: numberOfCorrectAnswers.numberOfCorrectAnswers.length,
+                questions: summaryQuiz.questions.length
+            }
+        })
     }, [numberOfCorrectAnswers.numberOfCorrectAnswers.length])
 
     return (
@@ -114,7 +116,7 @@ const Details = () => {
                 {checkedAnswers.checked.map((answer, id) => {
                     return <DetailsBox key={id} id={id + 1} checkedAnswer={answer} time={summaryQuiz.time}/>
                 })}
-            </section> : "Loading"}
+            </section> : <Loader height={5}/>}
         </>
     )
 }

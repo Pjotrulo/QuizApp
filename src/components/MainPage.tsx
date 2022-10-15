@@ -103,7 +103,8 @@ const MainPage = () => {
                                     <img src={el[0]} alt={el[1]}/>
                                 </button>)
                         }
-                    }) : "Loading"}
+                        return null;
+                    }) : null}
                 </div> : null}
             </section>
             <Footer/>
