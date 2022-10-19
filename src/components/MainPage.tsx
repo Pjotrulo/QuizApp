@@ -96,6 +96,10 @@ const MainPage = () => {
                                             marginTop: '9rem'
                                         }}
                                         onClick={() => {
+                                            axios.delete(`http://localhost:3001/latest_games/1`)
+                                                .then(res => {
+                                                    return res
+                                                });
                                             window.location.href = 'http://localhost:3000/game';
                                         }}>
                                         Play Again
